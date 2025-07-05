@@ -10,9 +10,10 @@ from aiogram.fsm.storage.redis import DefaultKeyBuilder, RedisStorage
 from aiogram.fsm.strategy import FSMStrategy
 
 from config import config
-from tg_bot.handlers import routers
-from tg_bot.middlewares import ConfigMiddleware, StorageMiddleware
-from tg_bot.services import set_default_commands
+
+from .handlers import routers
+from .middlewares import ConfigMiddleware, StorageMiddleware
+from .services import set_default_commands
 
 
 async def on_startup(bot: Bot) -> None:
