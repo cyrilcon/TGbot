@@ -13,7 +13,7 @@ class TgBotConfig(BaseModel):
 
 
 class DatabaseConfig(BaseModel):
-    driver: str = "asyncpg"
+    driver: str = "postgresql+asyncpg"
     host: str = "localhost"
     port: int = 5432
     user: str = "postgres"
@@ -23,22 +23,15 @@ class DatabaseConfig(BaseModel):
     echo_pool: bool = False
     pool_size: int = 50
     max_overflow: int = 10
+    expire_on_commit: bool = False
 
-    def construct_url(
-        self,
-        driver: str | None = None,
-        host: str | None = None,
-        port: int | None = None,
-    ) -> str:
-        driver = driver or self.driver
-        host = host or self.host
-        port = port or self.port
+    def construct_url(self) -> str:
         uri = URL.create(
-            drivername=f"postgresql+{driver}",
+            drivername=self.driver,
             username=self.user,
             password=self.password,
-            host=host,
-            port=port,
+            host=self.host,
+            port=self.port,
             database=self.database,
         )
         return uri.render_as_string(hide_password=False)
@@ -64,7 +57,7 @@ class Envs(Enum):
 
 class Config(BaseSettings):
     model_config = SettingsConfigDict(
-        env_file=(".env",),
+        env_file=(".env.template", ".env"),
         case_sensitive=False,
         env_nested_delimiter="__",
         extra="ignore",
