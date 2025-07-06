@@ -5,13 +5,12 @@ from sqlalchemy import (
     Column,
     DateTime,
     Integer,
-    MetaData,
     String,
     Table,
     Text,
 )
 
-metadata = MetaData()
+from infrastructure.db.models.metadata import metadata
 
 users = Table(
     "users",
