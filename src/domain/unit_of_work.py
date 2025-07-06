@@ -1,13 +1,13 @@
 from types import TracebackType
 from typing import Protocol
 
-from domain.repositories import UserRepository
+from domain.repositories import AbstractUserRepository
 
 
-class UnitOfWork(Protocol):
-    user_repo: UserRepository
+class AbstractUnitOfWork(Protocol):
+    user_repo: AbstractUserRepository
 
-    async def __aenter__(self) -> "UnitOfWork":
+    async def __aenter__(self) -> "AbstractUnitOfWork":
         pass
 
     async def __aexit__(

@@ -1,11 +1,11 @@
 from datetime import UTC, datetime
 
 from domain.entities import User
-from domain.unit_of_work import UnitOfWork
+from domain.unit_of_work import AbstractUnitOfWork
 
 
 class RegisterUserUseCase:
-    def __init__(self, uow: UnitOfWork) -> None:
+    def __init__(self, uow: AbstractUnitOfWork) -> None:
         self.uow = uow
 
     async def execute(
@@ -17,8 +17,7 @@ class RegisterUserUseCase:
         photo: str | None = None,
     ) -> None:
         async with self.uow:
-            existing = await self.uow.user_repo.get_by_social_id(social_id)
-            if existing:
+            if await self.uow.user_repo.get_by_social_id(social_id):
                 return
 
             new_user = User(

@@ -2,11 +2,11 @@ from types import TracebackType
 
 from sqlalchemy.ext.asyncio import AsyncSession, async_sessionmaker
 
-from domain.unit_of_work import UnitOfWork
+from domain.unit_of_work import AbstractUnitOfWork
 from infrastructure.repositories import SQLAlchemyUserRepository
 
 
-class SQLAlchemyUnitOfWork(UnitOfWork):
+class SQLAlchemyUnitOfWork(AbstractUnitOfWork):
     def __init__(self, session_factory: async_sessionmaker[AsyncSession]) -> None:
         self._session_factory = session_factory
         self.session: AsyncSession

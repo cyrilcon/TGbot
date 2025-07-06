@@ -5,11 +5,11 @@ from sqlalchemy.engine import Row
 from sqlalchemy.ext.asyncio import AsyncSession
 
 from domain.entities import User
-from domain.repositories import UserRepository
+from domain.repositories import AbstractUserRepository
 from infrastructure.db.models import users
 
 
-class SQLAlchemyUserRepository(UserRepository):
+class SQLAlchemyUserRepository(AbstractUserRepository):
     def __init__(self, session: AsyncSession) -> None:
         self.session = session
 
