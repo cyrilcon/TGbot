@@ -1,6 +1,6 @@
 from datetime import UTC, datetime
 
-from domain.entities.user import User
+from domain.entities import User
 from domain.unit_of_work import UnitOfWork
 
 

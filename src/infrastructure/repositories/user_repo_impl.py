@@ -4,9 +4,9 @@ from sqlalchemy import insert, select, update
 from sqlalchemy.engine import Row
 from sqlalchemy.ext.asyncio import AsyncSession
 
-from domain.entities.user import User
-from domain.repositories.user_repo import UserRepository
-from infrastructure.db.models.users import users
+from domain.entities import User
+from domain.repositories import UserRepository
+from infrastructure.db.models import users
 
 
 class SQLAlchemyUserRepository(UserRepository):
